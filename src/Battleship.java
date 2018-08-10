@@ -11,16 +11,20 @@ public class Battleship
 	{
 		initializeGui();
 		
-		String serverName = "";
-		int port = 0;
+		String serverName = "ec2-18-207-150-67.compute-1.amazonaws.com";
+		int port = 8989;
 		
 		String username = JOptionPane.showInputDialog(new JFrame(), "Enter username: ");
+		System.out.println("Connecting to " + serverName + " on port " + port);
 		
 		try (Socket conn = new Socket(serverName, port);
 				BufferedReader read = new BufferedReader(new InputStreamReader(conn.getInputStream())))
 		{
 			
+			System.out.println("Just connected to " + conn.getRemoteSocketAddress());
+			
 			ServerHandler sh = new ServerHandler(conn);
+			sh.SendMoveMessage(5, 8);
 			
 			String input = read.readLine();
 			
@@ -28,6 +32,7 @@ public class Battleship
 			while (input != null)
 			{
 				// Handle inputs, call ServerHandler
+				System.out.println(input);
 				
 				input = read.readLine();
 			}
