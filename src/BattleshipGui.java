@@ -28,6 +28,7 @@ public class BattleshipGui extends JFrame
 		enemyPanel = new JPanel(new GridLayout(11, 11));
 		JPanel sidePanel = new JPanel(new GridLayout(2, 1));
 		playerPanel = new JPanel(new GridLayout(11, 11));
+		JPanel wholePlayerPanel = new JPanel(new BorderLayout());
 		JPanel chatPanel = new JPanel(new GridLayout(2, 1));
 		JPanel receivedPanel = new JPanel(new BorderLayout());
 		JPanel sendPanel = new JPanel(new GridLayout(2, 1));
@@ -63,6 +64,7 @@ public class BattleshipGui extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Place randomized ships on the player "buttons"
+				System.out.println("randomize");
 			}
 			
 		});
@@ -74,16 +76,21 @@ public class BattleshipGui extends JFrame
 			public void actionPerformed(ActionEvent e) {
 				randomize.setEnabled(false);
 				start.setEnabled(false);
+				System.out.println("start");
 			}
 			
 		});
+		
+		wholePlayerPanel.add(playerPanel, BorderLayout.CENTER);
+		wholePlayerPanel.add(randomize, BorderLayout.NORTH);
+		wholePlayerPanel.add(start, BorderLayout.SOUTH);
 		
 		receivedPanel.add(scrollPane, BorderLayout.CENTER);
 		sendPanel.add(text);
 		sendPanel.add(send);
 		
 		panel.add(enemyPanel);
-		sidePanel.add(playerPanel);
+		sidePanel.add(wholePlayerPanel);
 		chatPanel.add(receivedPanel);
 		chatPanel.add(sendPanel);
 		sidePanel.add(chatPanel);
@@ -125,7 +132,6 @@ public class BattleshipGui extends JFrame
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						String[] coords = e.getActionCommand().split(",");
-						System.out.println(coords[0] + "," + coords[1]);
 						JButton button = enemy.get(Integer.parseInt(coords[0])).get(Integer.parseInt(coords[1]));
 						button.setBackground(Color.red);
 						button.setOpaque(true);
@@ -194,6 +200,10 @@ public class BattleshipGui extends JFrame
 		initPlayer();
 		randomize.setEnabled(true);
 		start.setEnabled(true);
+	}
+	
+	private void randomizeShips() {
+		// Logic for placing randomized ships on the player board
 	}
 	
 	public void showWin() {
