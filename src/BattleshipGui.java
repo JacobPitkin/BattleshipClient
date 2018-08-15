@@ -48,21 +48,26 @@ public class BattleshipGui extends JFrame
 		
 		text = new JTextArea();
 		JButton send = new JButton("Send");
-		send.addActionListener(new ActionListener() {
+		send.addActionListener(new ActionListener()
+		{
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				dlm.addElement(text.getText());
+			public void actionPerformed(ActionEvent e)
+			{
+//				dlm.addElement(text.getText());
+				sh.SendChatMessage(text.getText());
 				text.setText("");
 			}
 			
 		});
 		
 		randomize = new JButton("Randomize Ships");
-		randomize.addActionListener(new ActionListener() {
+		randomize.addActionListener(new ActionListener()
+		{
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 				// Place randomized ships on the player "buttons"
 				System.out.println("randomize");
 			}
@@ -70,10 +75,12 @@ public class BattleshipGui extends JFrame
 		});
 		
 		start = new JButton("Start");
-		start.addActionListener(new ActionListener() {
+		start.addActionListener(new ActionListener()
+		{
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 				randomize.setEnabled(false);
 				start.setEnabled(false);
 				System.out.println("start");
@@ -99,27 +106,36 @@ public class BattleshipGui extends JFrame
 		setVisible(true);
 	}
 	
-	private void initEnemy() {
+	private void initEnemy()
+	{
 		enemy = new ArrayList<>();
 		enemyPanel.removeAll();
 		
-		for (int i = 0; i < 11; i++) {
+		for (int i = 0; i < 11; i++)
+		{
 			ArrayList<JButton> arr = new ArrayList<>();
 			
-			for (int j = 0; j < 11; j++) {
+			for (int j = 0; j < 11; j++)
+			{
 				JButton button = new JButton();
 				
-				if (i == 0) {
-					if (j == 0) {
+				if (i == 0)
+				{
+					if (j == 0)
+					{
 						button.setBackground(Color.black);
 						button.setOpaque(true);
 						button.setBorderPainted(false);
 						button.setEnabled(false);
-					} else {
+					}
+					else
+					{
 						button.setText(String.valueOf((char)(j+64)));
 						button.setEnabled(false);
 					}
-				} else {
+				}
+				else
+				{
 					if (j == 0) {
 						button.setText("" + i);
 						button.setEnabled(false);
@@ -204,6 +220,8 @@ public class BattleshipGui extends JFrame
 	
 	private void randomizeShips() {
 		// Logic for placing randomized ships on the player board
+		// 5, 4, 3, 3, 2
+		
 	}
 	
 	public void showWin() {
