@@ -55,8 +55,8 @@ public class BattleshipGui extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 //				dlm.addElement(text.getText());
-//				sh.SendChatMessage(text.getText());
-				enableButtons();
+				sh.SendChatMessage(text.getText());
+//				enableButtons();
 				text.setText("");
 			}
 			
@@ -70,7 +70,7 @@ public class BattleshipGui extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				// Place randomized ships on the player "buttons"
-				System.out.println("randomize");
+				randomizeShips();
 			}
 			
 		});
@@ -216,13 +216,13 @@ public class BattleshipGui extends JFrame
 						button.setOpaque(true);
 						button.setBorderPainted(false);
 						disableButtons();
-						isHit(Integer.parseInt(coords[1]), Integer.parseInt(coords[0]));
-//						sh.SendMoveMessage(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
+//						isHit(Integer.parseInt(coords[1]), Integer.parseInt(coords[0]));
+						sh.SendMoveMessage(Integer.parseInt(coords[1]), Integer.parseInt(coords[0]));
 					} 	
 					
 				});
 				
-//				button.setEnabled(false);
+				button.setEnabled(false);
 				arr.add(button);
 			}
 			
@@ -310,6 +310,24 @@ public class BattleshipGui extends JFrame
 		return false;
 	}
 	
+	public boolean isWin()
+	{
+		int count = 0;
+		
+		for (ArrayList<JButton> tiles : player)
+		{
+			for (JButton tile : tiles)
+			{
+				if (tile.getBackground().equals(Color.red))
+				{
+					count++;
+				}
+			}
+		}
+		
+		return count == 17;
+	}
+	
 	private void newGame()
 	{
 		initEnemy();
@@ -329,19 +347,37 @@ public class BattleshipGui extends JFrame
 		ArrayList<Integer> ship1y = new ArrayList<>();
 		ship1y.add(1);
 		
+		for (int y : ship1y) {
+			for (int x : ship1x) {
+				setPlayer(player.get(y).get(x));
+			}
+		}
+		
 		ArrayList<Integer> ship2x = new ArrayList<>();
-		for (int i = 4; i < 9; i++) {
+		for (int i = 4; i < 8; i++) {
 			ship2x.add(i);
 		}
 		ArrayList<Integer>ship2y = new ArrayList<>();
 		ship2y.add(2);
 		
+		for (int y : ship2y) {
+			for (int x : ship2x) {
+				setPlayer(player.get(y).get(x));
+			}
+		}
+		
 		ArrayList<Integer> ship3x = new ArrayList<>();
-		for (int i = 3; i < 7; i++) {
+		for (int i = 3; i < 6; i++) {
 			ship3x.add(i);
 		}
 		ArrayList<Integer> ship3y = new ArrayList<>();
 		ship3y.add(4);
+		
+		for (int y : ship3y) {
+			for (int x : ship3x) {
+				setPlayer(player.get(y).get(x));
+			}
+		}
 		
 		ArrayList<Integer> ship4x = new ArrayList<>();
 		for (int i = 7; i < 10; i++) {
@@ -350,18 +386,44 @@ public class BattleshipGui extends JFrame
 		ArrayList<Integer> ship4y = new ArrayList<>();
 		ship4y.add(8);
 		
+		for (int y : ship4y) {
+			for (int x : ship4x) {
+				setPlayer(player.get(y).get(x));
+			}
+		}
+		
 		ArrayList<Integer> ship5x = new ArrayList<>();
 		ship5x.add(4);
 		ship5x.add(5);
 		ArrayList<Integer> ship5y = new ArrayList<>();
 		ship5y.add(10);
+		
+		for (int y : ship5y) {
+			for (int x : ship5x) {
+				setPlayer(player.get(y).get(x));
+			}
+		}
+	}
+	
+	private void setPlayer(JButton tile)
+	{
+		tile.setBackground(Color.green);
+		tile.setOpaque(true);
+		tile.setBorderPainted(false);
 	}
 	
 	public void showWin()
 	{
 		// Dialog signifying a win
 		// Probably add if here
-		newGame();
+		int reply = JOptionPane.showConfirmDialog(null, "You won! Would you like to play again?", "Win Message", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+          newGame();
+        }
+        else {
+           JOptionPane.showMessageDialog(null, "GOODBYE");
+           System.exit(0);
+        }
 	}
 	
 	public void start()
