@@ -340,69 +340,72 @@ public class BattleshipGui extends JFrame
 	{
 		// Logic for placing randomized ships on the player board
 		// 5, 4, 3, 3, 2
-		ArrayList<Integer> ship1x = new ArrayList<>();
-		for (int i = 1; i < 6; i++) {
-			ship1x.add(i);
-		}
-		ArrayList<Integer> ship1y = new ArrayList<>();
-		ship1y.add(1);
 		
-		for (int y : ship1y) {
-			for (int x : ship1x) {
-				setPlayer(player.get(y).get(x));
+		initPlayer();
+		
+		int[] sizes = {5, 4, 3, 3, 2};
+		
+		for (int i : sizes) {
+			System.out.println("Tile: " + i);
+			
+			while (true) {
+				long time = System.nanoTime();
+				
+				if (time % 2 == 0) {
+					// Horizontal
+					int x = (int)(Math.random() * (11 - i));
+					int y = (int)(Math.random() * 11);
+					
+					boolean cont = true;
+					
+					for (int j = x; j < x + i; j++) {
+						if (player.get(y).get(j).getBackground().equals(Color.green)) {
+							cont = false;
+						}
+					}
+					
+					if (!cont) {
+						continue;
+					}
+					
+					for (int j = x; j < x + i; j++) {
+						JButton tile = player.get(y).get(j);
+						tile.setBackground(Color.green);
+						tile.setOpaque(true);
+						tile.setBorderPainted(false);
+					}
+					
+					break;
+				} else {
+					// Vertical
+					int x = (int)(Math.random() * 11);
+					int y = (int)(Math.random() * (11 - i));
+					
+					boolean cont = true;
+					
+					for (int j = y; j < y + i; j++) {
+						if (player.get(j).get(x).getBackground().equals(Color.green)) {
+							cont = false;
+						}
+					}
+					
+					if (!cont) {
+						continue;
+					}
+					
+					for (int j = y; j < y + 1; j++) {
+						JButton tile = player.get(j).get(x);
+						tile.setBackground(Color.green);
+						tile.setOpaque(true);
+						tile.setBorderPainted(false);
+					}
+					
+					break;
+				}
 			}
 		}
 		
-		ArrayList<Integer> ship2x = new ArrayList<>();
-		for (int i = 4; i < 8; i++) {
-			ship2x.add(i);
-		}
-		ArrayList<Integer>ship2y = new ArrayList<>();
-		ship2y.add(2);
-		
-		for (int y : ship2y) {
-			for (int x : ship2x) {
-				setPlayer(player.get(y).get(x));
-			}
-		}
-		
-		ArrayList<Integer> ship3x = new ArrayList<>();
-		for (int i = 3; i < 6; i++) {
-			ship3x.add(i);
-		}
-		ArrayList<Integer> ship3y = new ArrayList<>();
-		ship3y.add(4);
-		
-		for (int y : ship3y) {
-			for (int x : ship3x) {
-				setPlayer(player.get(y).get(x));
-			}
-		}
-		
-		ArrayList<Integer> ship4x = new ArrayList<>();
-		for (int i = 7; i < 10; i++) {
-			ship4x.add(i);
-		}
-		ArrayList<Integer> ship4y = new ArrayList<>();
-		ship4y.add(8);
-		
-		for (int y : ship4y) {
-			for (int x : ship4x) {
-				setPlayer(player.get(y).get(x));
-			}
-		}
-		
-		ArrayList<Integer> ship5x = new ArrayList<>();
-		ship5x.add(4);
-		ship5x.add(5);
-		ArrayList<Integer> ship5y = new ArrayList<>();
-		ship5y.add(10);
-		
-		for (int y : ship5y) {
-			for (int x : ship5x) {
-				setPlayer(player.get(y).get(x));
-			}
-		}
+		System.out.println("Done");
 	}
 	
 	private void setPlayer(JButton tile)
