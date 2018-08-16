@@ -56,6 +56,7 @@ public class BattleshipGui extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				sh.SendChatMessage(text.getText());
+				dlm.addElement("You: " + text.getText());
 				text.setText("");
 			}
 			
@@ -116,7 +117,7 @@ public class BattleshipGui extends JFrame
 	
 	public void addMessage(String message)
 	{
-		dlm.addElement(message);
+		dlm.addElement("Opponent: " + message);
 	}
 	
 	private void disableButtons()
