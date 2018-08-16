@@ -6,27 +6,19 @@ import java.net.*;
 
 import javax.swing.*;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
 public class Battleship
 {
+	@SuppressWarnings("static-access")
 	public static void main(String[] args)
 	{
-//		initializeGui();
-		
 		String serverName = "ec2-18-207-150-67.compute-1.amazonaws.com";
 		int port = 8989;
 		
 		String username = JOptionPane.showInputDialog(new JFrame(), "Enter username: ");
-//		System.out.println("Connecting to " + serverName + " on port " + port);
 		
 		try (Socket conn = new Socket(serverName, port);
 				BufferedReader read = new BufferedReader(new InputStreamReader(conn.getInputStream())))
 		{
-			
-//			System.out.println("Just connected to " + conn.getRemoteSocketAddress());
-			
 			ServerHandler sh = new ServerHandler(conn);
 			BattleshipGui gui = new BattleshipGui(sh);
 			
@@ -38,8 +30,6 @@ public class Battleship
 			{
 				System.out.println(input);
 				Message message = MessageFactory.parse(input);
-				
-				System.out.println(message.type);
 				
 				if (message.type.equals("Chat"))
 				{
@@ -56,7 +46,7 @@ public class Battleship
 				}
 				else if (message.type.equals("Ignore"))
 				{
-					System.out.println("don't care");
+					// Ignore this message
 				}
 				else if (message.type.equals("Move"))
 				{

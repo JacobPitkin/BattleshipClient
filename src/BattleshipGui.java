@@ -51,12 +51,11 @@ public class BattleshipGui extends JFrame
 		send.addActionListener(new ActionListener()
 		{
 			
+			@SuppressWarnings("static-access")
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-//				dlm.addElement(text.getText());
 				sh.SendChatMessage(text.getText());
-//				enableButtons();
 				text.setText("");
 			}
 			
@@ -69,7 +68,6 @@ public class BattleshipGui extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				// Place randomized ships on the player "buttons"
 				randomizeShips();
 			}
 			
@@ -79,12 +77,12 @@ public class BattleshipGui extends JFrame
 		start.addActionListener(new ActionListener()
 		{
 			
+			@SuppressWarnings("static-access")
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				randomize.setEnabled(false);
 				start.setEnabled(false);
-//				System.out.println("start");
 				sh.SendStartMessage();
 				System.out.println("sent start");
 			}
@@ -207,6 +205,7 @@ public class BattleshipGui extends JFrame
 				button.addActionListener(new ActionListener()
 				{
 
+					@SuppressWarnings("static-access")
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
@@ -216,7 +215,6 @@ public class BattleshipGui extends JFrame
 						button.setOpaque(true);
 						button.setBorderPainted(false);
 						disableButtons();
-//						isHit(Integer.parseInt(coords[1]), Integer.parseInt(coords[0]));
 						sh.SendMoveMessage(Integer.parseInt(coords[1]), Integer.parseInt(coords[0]));
 					} 	
 					
@@ -338,74 +336,94 @@ public class BattleshipGui extends JFrame
 	
 	private void randomizeShips()
 	{
-		// Logic for placing randomized ships on the player board
-		// 5, 4, 3, 3, 2
-		
 		initPlayer();
 		
 		int[] sizes = {5, 4, 3, 3, 2};
 		
-		for (int i : sizes) {
-			System.out.println("Tile: " + i);
-			
-			while (true) {
+		for (int i : sizes)
+		{
+			while (true)
+			{
 				long time = System.nanoTime();
 				
-				if (time % 2 == 0) {
+				if (time % 2 == 0)
+				{
 					// Horizontal
-					int x = (int)(Math.random() * (11 - i));
-					int y = (int)(Math.random() * 11);
+					int x = 1 + (int)(Math.random() * (11 - i));
+					int y = 1 + (int)(Math.random() * 11);
+					
+					if (x == 11)
+					{
+						x--;
+					}
+					
+					if (y == 11)
+					{
+						y--;
+					}
 					
 					boolean cont = true;
 					
-					for (int j = x; j < x + i; j++) {
-						if (player.get(y).get(j).getBackground().equals(Color.green)) {
+					for (int j = x; j < x + i; j++)
+					{
+						if (player.get(y).get(j).getBackground().equals(Color.green))
+						{
 							cont = false;
 						}
 					}
 					
-					if (!cont) {
+					if (!cont)
+					{
 						continue;
 					}
 					
-					for (int j = x; j < x + i; j++) {
-						JButton tile = player.get(y).get(j);
-						tile.setBackground(Color.green);
-						tile.setOpaque(true);
-						tile.setBorderPainted(false);
+					for (int j = x; j < x + i; j++)
+					{
+						setPlayer(player.get(y).get(j));
 					}
 					
 					break;
-				} else {
+				}
+				else
+				{
 					// Vertical
-					int x = (int)(Math.random() * 11);
-					int y = (int)(Math.random() * (11 - i));
+					int x = 1 + (int)(Math.random() * 11);
+					int y = 1 + (int)(Math.random() * (11 - i));
+					
+					if (x == 11)
+					{
+						x--;
+					}
+					
+					if (y == 11)
+					{
+						y--;
+					}
 					
 					boolean cont = true;
 					
-					for (int j = y; j < y + i; j++) {
-						if (player.get(j).get(x).getBackground().equals(Color.green)) {
+					for (int j = y; j < y + i; j++)
+					{
+						if (player.get(j).get(x).getBackground().equals(Color.green))
+						{
 							cont = false;
 						}
 					}
 					
-					if (!cont) {
+					if (!cont)
+					{
 						continue;
 					}
 					
-					for (int j = y; j < y + 1; j++) {
-						JButton tile = player.get(j).get(x);
-						tile.setBackground(Color.green);
-						tile.setOpaque(true);
-						tile.setBorderPainted(false);
+					for (int j = y; j < y + i; j++)
+					{
+						setPlayer(player.get(j).get(x));
 					}
 					
 					break;
 				}
 			}
 		}
-		
-		System.out.println("Done");
 	}
 	
 	private void setPlayer(JButton tile)
@@ -417,13 +435,14 @@ public class BattleshipGui extends JFrame
 	
 	public void showWin()
 	{
-		// Dialog signifying a win
-		// Probably add if here
 		int reply = JOptionPane.showConfirmDialog(null, "You won! Would you like to play again?", "Win Message", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
+        
+		if (reply == JOptionPane.YES_OPTION)
+        {
           newGame();
         }
-        else {
+        else
+        {
            JOptionPane.showMessageDialog(null, "GOODBYE");
            System.exit(0);
         }
