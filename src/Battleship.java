@@ -28,19 +28,15 @@ public class Battleship
 			
 			while (input != null)
 			{
-				System.out.println(input);
 				Message message = MessageFactory.parse(input);
 				
 				if (message.type.equals("Chat"))
 				{
-					System.out.println("Chat message");
 					ChatMessage chat = (ChatMessage) message;
-					System.out.println(chat.username + ": " + chat.chatMessage);
 					gui.addMessage(chat.chatMessage);
 				}
 				else if (message.type.equals("Hit"))
 				{
-					System.out.println("received hit");
 					HitMessage hitMessage = (HitMessage) message;
 					gui.hit(hitMessage.hit);
 				}
@@ -50,7 +46,6 @@ public class Battleship
 				}
 				else if (message.type.equals("Move"))
 				{
-					System.out.println("reeived move");
 					MoveMessage moveMessage = (MoveMessage) message;
 					boolean hit = gui.isHit(moveMessage.xCoordinate, moveMessage.yCoordinate);
 					
@@ -73,12 +68,10 @@ public class Battleship
 				}
 				else if (message.type.equals("Start"))
 				{
-					System.out.println("received start");
 					gui.start();
 				}
 				else if (message.type.equals("Win"))
 				{
-					System.out.println("received win");
 					gui.showWin();
 				}
 				

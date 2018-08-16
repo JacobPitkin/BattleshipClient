@@ -87,7 +87,6 @@ public class BattleshipGui extends JFrame
 					randomize.setEnabled(false);
 					start.setEnabled(false);
 					sh.SendStartMessage();
-					System.out.println("sent start");
 				}
 				else
 				{
