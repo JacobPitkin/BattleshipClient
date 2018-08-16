@@ -81,10 +81,17 @@ public class BattleshipGui extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				randomize.setEnabled(false);
-				start.setEnabled(false);
-				sh.SendStartMessage();
-				System.out.println("sent start");
+				if (areShipsPlaced())
+				{
+					randomize.setEnabled(false);
+					start.setEnabled(false);
+					sh.SendStartMessage();
+					System.out.println("sent start");
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Shpis haven't been placed, please press the \"Randomize Ships\" button to place ships.");
+				}
 			}
 			
 		});
@@ -123,6 +130,24 @@ public class BattleshipGui extends JFrame
 		}
 	}
 	
+	private boolean areShipsPlaced()
+	{
+		int count = 0;
+		
+		for (ArrayList<JButton> tiles : player)
+		{
+			for (JButton tile : tiles)
+			{
+				if (tile.getBackground().equals(Color.green))
+				{
+					count++;
+				}
+			}
+		}
+		
+		return count == 17;
+	}
+	
 	private void enableButtons()
 	{
 		for (ArrayList<JButton> tiles : enemy)
@@ -142,7 +167,6 @@ public class BattleshipGui extends JFrame
 	
 	public void hit(boolean hit)
 	{
-		// Add hit logic
 		for (ArrayList<JButton> tiles : enemy)
 		{
 			for (JButton tile : tiles)
@@ -443,7 +467,7 @@ public class BattleshipGui extends JFrame
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null, "Goddbye");
+			JOptionPane.showMessageDialog(null, "Goodbye");
 			System.exit(0);
 		}
 	}
