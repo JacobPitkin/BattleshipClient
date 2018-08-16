@@ -433,6 +433,21 @@ public class BattleshipGui extends JFrame
 		tile.setBorderPainted(false);
 	}
 	
+	public void showLose()
+	{
+		int reply = JOptionPane.showConfirmDialog(null, "You lost! Would you like to play again?", "Loss Message", JOptionPane.YES_NO_OPTION);
+		
+		if (reply == JOptionPane.YES_OPTION)
+		{
+			newGame();
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Goddbye");
+			System.exit(0);
+		}
+	}
+	
 	public void showWin()
 	{
 		int reply = JOptionPane.showConfirmDialog(null, "You won! Would you like to play again?", "Win Message", JOptionPane.YES_NO_OPTION);
@@ -443,7 +458,7 @@ public class BattleshipGui extends JFrame
         }
         else
         {
-           JOptionPane.showMessageDialog(null, "GOODBYE");
+           JOptionPane.showMessageDialog(null, "Goodbye");
            System.exit(0);
         }
 	}

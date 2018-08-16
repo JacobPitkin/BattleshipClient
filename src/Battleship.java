@@ -59,7 +59,7 @@ public class Battleship
 						if (gui.isWin())
 						{
 							sh.WinMessage();
-							gui.showWin();
+							gui.showLose();
 						}
 						else
 						{
