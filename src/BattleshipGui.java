@@ -181,11 +181,39 @@ public class BattleshipGui extends JFrame
 					if (hit)
 					{
 						tile.setBackground(Color.red);
+						
+						try
+						{
+							File soundFile = new File("hit.wav");
+					        AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+					        Clip clip = AudioSystem.getClip();
+					        clip.open(audioIn);
+					        clip.start();
+						}
+						catch (Exception e)
+						{
+							e.printStackTrace();
+						}
+						
 						break;
 					}
 					else
 					{
 						tile.setBackground(Color.blue);
+						
+						try
+						{
+							File soundFile = new File("miss.wav");
+					        AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+					        Clip clip = AudioSystem.getClip();
+					        clip.open(audioIn);
+					        clip.start();
+						}
+						catch (Exception e)
+						{
+							e.printStackTrace();
+						}
+						
 						break;
 					}
 				}
@@ -326,6 +354,7 @@ public class BattleshipGui extends JFrame
 		if (tile.getBackground().equals(Color.green))
 		{
 			tile.setBackground(Color.red);
+			
 			try
 			{
 				File soundFile = new File("hit.wav");
