@@ -278,7 +278,7 @@ public class BattleshipGui extends JFrame
 						button.setOpaque(true);
 						button.setBorderPainted(false);
 						disableButtons();
-						sh.SendMoveMessage(Integer.parseInt(coords[1]), Integer.parseInt(coords[0]));
+						sh.SendMoveMessage(Integer.parseInt(coords[1]) - 1, Integer.parseInt(coords[0]) - 1);
 					} 	
 					
 				});
@@ -355,6 +355,8 @@ public class BattleshipGui extends JFrame
 	
 	public boolean isHit(int x, int y)
 	{
+		x++;
+		y++;
 		JButton tile = player.get(y).get(x);
 		
 		if (tile.getBackground().equals(Color.green))
