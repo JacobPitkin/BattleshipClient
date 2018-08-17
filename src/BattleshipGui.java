@@ -1,6 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.*;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -321,6 +326,19 @@ public class BattleshipGui extends JFrame
 		if (tile.getBackground().equals(Color.green))
 		{
 			tile.setBackground(Color.red);
+			try
+			{
+				File soundFile = new File("hit.wav");
+		        AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+		        Clip clip = AudioSystem.getClip();
+		        clip.open(audioIn);
+		        clip.start();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			
 			enableButtons();
 			return true;
 		}
@@ -328,6 +346,20 @@ public class BattleshipGui extends JFrame
 		tile.setBackground(Color.blue);
 		tile.setOpaque(true);
 		tile.setBorderPainted(false);
+		
+		try
+		{
+			File soundFile = new File("miss.wav");
+	        AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioIn);
+	        clip.start();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		enableButtons();
 		return false;
 	}
