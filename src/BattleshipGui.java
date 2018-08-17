@@ -189,6 +189,9 @@ public class BattleshipGui extends JFrame
 					        Clip clip = AudioSystem.getClip();
 					        clip.open(audioIn);
 					        clip.start();
+					        
+					        clip.close();
+					        audioIn.close();
 						}
 						catch (Exception e)
 						{
@@ -208,6 +211,9 @@ public class BattleshipGui extends JFrame
 					        Clip clip = AudioSystem.getClip();
 					        clip.open(audioIn);
 					        clip.start();
+					        
+					        clip.close();
+					        audioIn.close();
 						}
 						catch (Exception e)
 						{
@@ -362,6 +368,9 @@ public class BattleshipGui extends JFrame
 		        Clip clip = AudioSystem.getClip();
 		        clip.open(audioIn);
 		        clip.start();
+		        
+		        clip.close();
+		        audioIn.close();
 			}
 			catch (Exception e)
 			{
@@ -383,6 +392,9 @@ public class BattleshipGui extends JFrame
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioIn);
 	        clip.start();
+	        
+	        clip.close();
+	        audioIn.close();
 		}
 		catch (Exception e)
 		{
